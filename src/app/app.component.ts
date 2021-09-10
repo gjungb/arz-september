@@ -6,5 +6,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'arz-september';
+  /**
+   * Der Titel der Veranstaltung
+   */
+  title = 'TypeScript und Angular für das ARZ';
 }

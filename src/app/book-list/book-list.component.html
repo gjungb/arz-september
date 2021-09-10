@@ -1,0 +1,22 @@
+<p>book-list works!</p>
+
+<arz-book-card
+  *ngIf="false"
+  (arzSelectBook)="handleSelectBook($event)"
+  [arzContent]="{
+    isbn: '1-234',
+    title: 'Es',
+    author: 'Stephen King',
+    abstract: ''
+  }"
+>
+</arz-book-card>
+
+<ol>
+  <li *ngFor="let book of books">
+    <arz-book-card
+      [arzContent]="book"
+      (arzSelectBook)="handleSelectBook($event)"
+    ></arz-book-card>
+  </li>
+</ol>
