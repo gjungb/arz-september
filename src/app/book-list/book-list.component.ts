@@ -9,19 +9,19 @@ import { Book } from '../model/book';
 export class BookListComponent implements OnInit {
   books: Book[] = [
     {
-      isbn: '1-234',
+      isbn: '978-3-86680-192-9',
       title: 'How to win friends',
       author: 'Dale Carnegie',
       abstract: 'How to Win Friends and Influence ...',
     },
     {
-      isbn: '2-345',
+      isbn: '9783866801929',
       title: 'The Willpower Instinct: How Self-Control Works ...',
       author: 'Kelly McGonigal',
       abstract: 'Based on Stanford University ...',
     },
     {
-      isbn: '3-456',
+      isbn: '',
       author: 'Simon Sinek',
       title: 'Start with WHY',
       abstract: "START WITH WHY shows that the leaders who've ...",

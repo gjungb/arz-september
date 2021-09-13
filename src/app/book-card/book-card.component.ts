@@ -28,6 +28,8 @@ export class BookCardComponent implements OnInit {
     backgroundColor: 'yellow'
   }
 
+  start = 4;
+
   constructor() { }
 
   ngOnInit(): void {
@@ -36,6 +38,11 @@ export class BookCardComponent implements OnInit {
   handleIsbnClick(ev: MouseEvent): void {
     console.log(ev.clientX);
     this.selectBook.emit(this.content.isbn);
+  }
+
+  formatIsbn(value?: string): string | undefined {
+    console.log(value);
+    return value;
   }
 
 }

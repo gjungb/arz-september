@@ -1,11 +1,17 @@
 <p>book-card works!</p>
 
-<h1>{{ content?.title }}</h1>
+<h1>{{ content?.title | uppercase | slice:start }}</h1>
 
 <h3 [style]="customStyle">{{ content?.author }}</h3>
+
+<p>
+    {{ content?.isbn | arzIsbn }}
+</p>
 
 <button (click)="handleIsbnClick($event)">
     ISBN: ...
 </button>
 
 <p>{{ content?.abstract }}</p>
+
+<pre><code>{{ content | json }}</code></pre>
