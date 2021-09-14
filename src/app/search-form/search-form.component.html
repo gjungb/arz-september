@@ -1,0 +1,25 @@
+<p>search-form works!</p>
+
+<pre><code>{{ searchTerm }}</code></pre>
+
+<!-- Reactive -->
+<form [formGroup]="searchForm" (ngSubmit)="submitForm(searchForm.value)">
+  <input type="text" [formControlName]="'term'" />
+  <p *ngIf="searchForm.get('term')?.hasError('required')">Bitte ausfüllen</p>
+  <button type="submit" [disabled]="searchForm.invalid">Absenden</button>
+</form>
+
+<!-- Template driven -->
+<form #myForm="ngForm" (ngSubmit)="submitForm(myForm.value)">
+  <input
+    type="text"
+    [(ngModel)]="searchTerm"
+    [ngModelOptions]="{ updateOn: 'change' }"
+    name="term"
+    required
+    [minlength]="minlength"
+    #myInput="ngModel"
+  />
+  <p *ngIf="myInput.hasError('required')">Bitte ausfüllen</p>
+  <button type="submit" [disabled]="myForm.invalid">Absenden</button>
+</form>

@@ -10,4 +10,6 @@ export class AppComponent {
    * Der Titel der Veranstaltung
    */
   title = 'TypeScript und Angular für das ARZ';
+
+  visible = true;
 }

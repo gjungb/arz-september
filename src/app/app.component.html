@@ -1,3 +1,7 @@
 <h1>Willkomen bei {{ title }}</h1>
 
-<arz-book-list></arz-book-list>
+<arz-search-form></arz-search-form>
+
+<button (click)="visible = !visible">Toggle</button>
+
+<arz-book-list *ngIf="visible"></arz-book-list>

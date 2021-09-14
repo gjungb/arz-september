@@ -12,11 +12,23 @@
 >
 </arz-book-card>
 
-<ol>
-  <li *ngFor="let book of books">
-    <arz-book-card
-      [arzContent]="book"
-      (arzSelectBook)="handleSelectBook($event)"
-    ></arz-book-card>
-  </li>
-</ol>
+<ng-template #loader>
+  <h1>
+    Wird geladen...
+  </h1>
+</ng-template>
+
+<ng-container *ngIf="books$ | async as things; else loader">
+  <p>
+    {{ things.length }}
+  </p>
+
+  <ol>
+    <li *ngFor="let book of things">
+      <arz-book-card
+        [arzContent]="book"
+        (arzSelectBook)="handleSelectBook($event)"
+      ></arz-book-card>
+    </li>
+  </ol>
+</ng-container>
