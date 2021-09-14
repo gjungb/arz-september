@@ -1,5 +1,4 @@
 import { Pipe, PipeTransform } from '@angular/core';
-// @ts-ignore
 import ISBN from 'isbn3';
 
 @Pipe({
