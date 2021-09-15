@@ -25,6 +25,8 @@
 
   <ol>
     <li *ngFor="let book of things">
+      <a [routerLink]="[book.isbn]">Details</a>
+
       <arz-book-card
         [arzContent]="book"
         (arzSelectBook)="handleSelectBook($event)"

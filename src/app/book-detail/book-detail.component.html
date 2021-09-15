@@ -1,0 +1,5 @@
+<p>book-detail works!</p>
+
+<ng-container *ngIf="book$ | async as book">
+  <arz-book-card [arzContent]="book"></arz-book-card>
+</ng-container>

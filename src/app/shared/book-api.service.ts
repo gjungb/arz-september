@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { catchError, delay, tap } from 'rxjs/operators';
+import { catchError, delay, map, tap } from 'rxjs/operators';
 import { Book } from '../model/book';
 import { API_URL } from '../tokens';
 
@@ -13,6 +13,24 @@ export class BookApiService {
     private readonly httpClient: HttpClient,
     @Inject(API_URL) private readonly url: string
   ) {}
+
+  getBookByIsbn(isbn: string): Observable<Book> {
+    const url = `${this.url}/${isbn}`;
+
+    return this.httpClient.get<Book>(url);
+  }
+
+  getBook(isbn: string): Observable<Book | undefined> {
+    const books$ = this.getAll();
+
+    const book$ = books$.pipe(
+      map((books) => {
+        return books.find((b) => b.isbn === isbn);
+      })
+    );
+
+    return book$;
+  }
 
   getAll(): Observable<Book[]> {
     // A stream of books => books$

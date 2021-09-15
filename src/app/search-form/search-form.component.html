@@ -6,7 +6,7 @@
 <form [formGroup]="searchForm" (ngSubmit)="submitForm(searchForm.value)">
   <input type="text" [formControlName]="'term'" />
   <p *ngIf="searchForm.get('term')?.hasError('required')">Bitte ausfüllen</p>
-  <button type="submit" [disabled]="searchForm.invalid">Absenden</button>
+  <button *ngIf="false" type="submit" [disabled]="searchForm.invalid">Absenden</button>
 </form>
 
 <!-- Template driven -->

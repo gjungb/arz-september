@@ -9,6 +9,8 @@ import { BookListComponent } from './book-list/book-list.component';
 import { SearchFormComponent } from './search-form/search-form.component';
 import { ArzIsbnPipe } from './shared/arz-isbn.pipe';
 import { API_URL } from './tokens';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { BookDetailComponent } from './book-detail/book-detail.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +19,8 @@ import { API_URL } from './tokens';
     BookListComponent,
     ArzIsbnPipe,
     SearchFormComponent,
+    DashboardComponent,
+    BookDetailComponent,
   ],
   imports: [
     BrowserModule,

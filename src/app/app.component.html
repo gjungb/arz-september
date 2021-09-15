@@ -1,7 +1,3 @@
 <h1>Willkomen bei {{ title }}</h1>
 
-<arz-search-form></arz-search-form>
-
-<button (click)="visible = !visible">Toggle</button>
-
-<arz-book-list *ngIf="visible"></arz-book-list>
+<router-outlet></router-outlet>

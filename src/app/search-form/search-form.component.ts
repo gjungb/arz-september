@@ -1,5 +1,17 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
+import {
+  debounceTime,
+  distinctUntilChanged,
+  filter,
+  mapTo,
+  withLatestFrom,
+} from 'rxjs/operators';
 
 @Component({
   selector: 'arz-search-form',
@@ -7,6 +19,9 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
   styleUrls: ['./search-form.component.scss'],
 })
 export class SearchFormComponent implements OnInit {
+  @Output('arzSearch')
+  search = new EventEmitter<string>();
+
   searchForm!: FormGroup;
 
   readonly minlength = 3;
@@ -16,14 +31,33 @@ export class SearchFormComponent implements OnInit {
   constructor(private readonly fb: FormBuilder) {}
 
   ngOnInit(): void {
-    this.searchForm = this.fb.group({
-      term: this.fb.control(this.searchTerm, {
-        updateOn: 'change',
-        validators: [Validators.required, Validators.minLength(this.minlength)],
-      }),
+    const termControl = this.fb.control(this.searchTerm, {
+      updateOn: 'change',
+      validators: [Validators.required, Validators.minLength(this.minlength)],
     });
 
-    // this.searchForm.valueChanges
+    this.searchForm = this.fb.group({
+      term: termControl,
+    });
+
+    const term$ = termControl.valueChanges.pipe(
+      debounceTime(300),
+      distinctUntilChanged(),
+      filter(() => termControl.valid)
+    );
+
+    term$.subscribe({
+      next: (v) => this.search.emit(v),
+    });
+
+    // const validity$ = this.searchForm.statusChanges.pipe(
+    //   filter((v) => v === 'VALID'),
+    //   withLatestFrom(term$)
+    // );
+
+    // validity$.subscribe({
+    //   next: (v) => console.log(v),
+    // });
   }
 
   submitForm(value: unknown): void {

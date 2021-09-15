@@ -37,4 +37,10 @@ export class BookListComponent implements OnInit, OnDestroy {
   handleSelectBook(ev: string): void {
     console.log(ev);
   }
+
+  handleSearch(term: string): void {
+    console.log(term);
+
+    // TODO filter list
+  }
 }
