@@ -4,7 +4,7 @@
 
 <!-- Reactive -->
 <form [formGroup]="searchForm" (ngSubmit)="submitForm(searchForm.value)">
-  <input type="text" [formControlName]="'term'" />
+  <input type="text" [formControl]="termControl" />
   <p *ngIf="searchForm.get('term')?.hasError('required')">Bitte ausfüllen</p>
   <button type="submit" [disabled]="searchForm.invalid">Absenden</button>
 </form>

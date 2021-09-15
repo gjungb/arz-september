@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable, Subscription, timer } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { Book } from '../model/book';
-import { BookApiService } from '../shared/book-api.service';
+import { BookService } from '../shared/book.service';
 
 @Component({
   selector: 'arz-book-list',
@@ -16,14 +16,14 @@ export class BookListComponent implements OnInit, OnDestroy {
 
   private sub?: Subscription;
 
-  constructor(private readonly bookService: BookApiService) {}
+  constructor(private readonly bookService: BookService) {}
 
   ngOnInit(): void {
     this.sub = timer(2_000, 3_000).subscribe({
       next: (value) => console.log(value),
     });
 
-    this.books$ = this.bookService.getAll().pipe(
+    this.books$ = this.bookService.books$.pipe(
       tap({
         complete: () => console.log('Bin fertig!'),
       })
