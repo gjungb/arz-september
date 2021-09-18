@@ -5,10 +5,12 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { Observable } from 'rxjs';
 import {
   debounceTime,
   distinctUntilChanged,
   filter,
+  map,
   mapTo,
   withLatestFrom,
 } from 'rxjs/operators';
@@ -20,7 +22,7 @@ import {
 })
 export class SearchFormComponent implements OnInit {
   @Output('arzSearch')
-  search = new EventEmitter<string>();
+  termChange = new EventEmitter<string>();
 
   searchForm!: FormGroup;
 
@@ -40,24 +42,23 @@ export class SearchFormComponent implements OnInit {
       term: termControl,
     });
 
-    const term$ = termControl.valueChanges.pipe(
-      debounceTime(300),
-      distinctUntilChanged(),
-      filter(() => termControl.valid)
+    const validity$ = this.searchForm.statusChanges.pipe(
+      map((status) => status === 'VALID')
     );
 
-    term$.subscribe({
-      next: (v) => this.search.emit(v),
+    const term$: Observable<string> = termControl.valueChanges.pipe(
+      debounceTime(300),
+      distinctUntilChanged()
+    );
+
+    const result$ = term$.pipe(
+      withLatestFrom(validity$),
+      filter(([, valid]) => valid)
+    );
+
+    result$.subscribe({
+      next: ([term]) => this.termChange.emit(term),
     });
-
-    // const validity$ = this.searchForm.statusChanges.pipe(
-    //   filter((v) => v === 'VALID'),
-    //   withLatestFrom(term$)
-    // );
-
-    // validity$.subscribe({
-    //   next: (v) => console.log(v),
-    // });
   }
 
   submitForm(value: unknown): void {
